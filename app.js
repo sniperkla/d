@@ -8,12 +8,14 @@ const { OpenAI } = require('openai')
 const fs = require('fs')
 app.use(express.json())
 
+const key = process.env.API_KEY
 const openai = new OpenAI({
-  apiKey: process.env.API_KEY
+  apiKey: key
 })
 
 app.post('/api/voice', async (req, res) => {
   try {
+    console.log('fucking key', key)
     const mp3 = fs.createReadStream('./path/www.mp3')
     const response = await openai.audio.translations.create({
       file: mp3,
